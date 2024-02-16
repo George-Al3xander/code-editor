@@ -17,9 +17,6 @@ dependencies:
   '@monaco-editor/react':
     specifier: ^4.6.0
     version: 4.6.0(monaco-editor@0.46.0)(react-dom@18.2.0)(react@18.2.0)
-  '@tanstack/react-query':
-    specifier: ^5.20.5
-    version: 5.20.5(react@18.2.0)
   framer-motion:
     specifier: ^11.0.5
     version: 11.0.5(react-dom@18.2.0)(react@18.2.0)
@@ -1958,19 +1955,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@tanstack/query-core@5.20.5:
-    resolution: {integrity: sha512-T1W28gGgWn0A++tH3lxj3ZuUVZZorsiKcv+R50RwmPYz62YoDEkG4/aXHZELGkRp4DfrW07dyq2K5dvJ4Wl1aA==}
-    dev: false
-
-  /@tanstack/react-query@5.20.5(react@18.2.0):
-    resolution: {integrity: sha512-6MHwJ8G9cnOC/XKrwt56QMc91vN7hLlAQNUA0ubP7h9Jj3a/CmkUwT6ALdFbnVP+PsYdhW3WONa8WQ4VcTaSLQ==}
-    peerDependencies:
-      react: ^18.0.0
-    dependencies:
-      '@tanstack/query-core': 5.20.5
-      react: 18.2.0
-    dev: false
 
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}

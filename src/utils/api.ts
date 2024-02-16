@@ -1,10 +1,29 @@
-import { PistonRuntime } from "../types/types";
+import { BASE_URL } from "../conts";
+import { ExecuteResponse, PistonRuntime } from "../types/types";
 
-const BASE_URL = "https://emkc.org/api/v2/piston"
 
 
 export const getRuntimes = async () => {
     const response = await fetch(`${BASE_URL}/runtimes`);
     const data = await response.json() as PistonRuntime[];
     return data
+}
+
+export const executeCode = async ({currLanguage:{language,version},sourceCode}:{currLanguage:PistonRuntime, sourceCode: string}) => {
+    const response = await fetch(`${BASE_URL}/execute`, {
+        method: "POST",
+        headers:   {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            language,
+            version,
+            files: [
+                {
+                    content: sourceCode
+                }
+            ]
+
+        })
+    })
+    const data = await response.json() as ExecuteResponse
+    return data 
 }
