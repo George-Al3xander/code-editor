@@ -28,6 +28,6 @@ const Providers = ({children}:{children: ReactNode}) => (<RecoilRoot>
         <ChakraProvider theme={theme}>
                 {children}
         </ChakraProvider>
-</RecoilRoot>)
+</RecoilRoot>)  
 
 export default Providers

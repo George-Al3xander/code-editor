@@ -1,3 +1,6 @@
+import { FaJs, FaReact, FaPython, FaJava,  FaPhp} from 'react-icons/fa';
+import { TbBrandCSharp,TbBrandCpp  } from "react-icons/tb";
+import { SiTypescript } from "react-icons/si";
 export const BASE_URL = "https://emkc.org/api/v2/piston"
 
 export const LANGUAGES = ["javascript","typescript","python","java","csharp","php","c++"]
@@ -29,4 +32,15 @@ export const LANGUAGES_FILE_EXTENSIONS = {
     csharp: '.cs',
     php: '.php',
     "c++": '.cpp',
+};
+
+
+export const LANGUAGES_REACT_ICONS = {
+    javascript: FaJs ,
+    typescript: SiTypescript , 
+    python: FaPython ,
+    java: FaJava ,
+    csharp: TbBrandCSharp ,
+    php: FaPhp ,
+    "c++": TbBrandCpp ,
   };
