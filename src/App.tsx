@@ -10,13 +10,13 @@ function App() {
   
 
   return (<>
-      <Header />
          <Box 
             minHeight={"100vh"} 
-            pt={"7rem"} 
+           
             bg="vscode.accent" 
             color={"white"}  
          >
+      <Header />
       <CodeEditor />
     </Box>
   </>)

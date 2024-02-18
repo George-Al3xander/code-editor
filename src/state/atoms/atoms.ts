@@ -20,13 +20,13 @@ export const $outputPosition = atom({
     default: "column-reverse"
 })
 
-export const $outputVisibility = atom({
+export const $outputVisibility = atom<"initial" | "none">({
     key: "output-Visibility",
-    default: "visible"
+    default: "initial"
 })
 
 
-export const $editorRef = atom<any>({
-    key: "editorRef",
+export const $output = atom<string[] | null>({
+    key: "output",
     default: null
 })

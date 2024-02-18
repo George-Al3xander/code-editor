@@ -1,38 +1,61 @@
-import { Box, Button, HStack, Spinner, Stack } from '@chakra-ui/react'
+import { Box,Spinner} from '@chakra-ui/react'
 import  { useRef, useState } from 'react'
 import Editor from '@monaco-editor/react';
-import LanguageMenu from './language menu/language-menu';
 import { useRecoilValue } from 'recoil';
-import { $currentLanguage, $outputPosition } from '../state/atoms/atoms';
-import Output from './output/output';
-import DownloadModal from './download-modal';
-import { useResizeDetector } from 'react-resize-detector';
+import { $currentLanguage, $outputPosition, $outputVisibility } from '../state/atoms/atoms';
+
+
+
 import Toolbar from './toolbar';
 
+import OutputDisplay from './output/output-display';
+import { $isHidden, $isVertical } from '../state/selectors/selectors';
+
  const CodeEditor = () => {    
-    const editorRef = useRef<any | null>(null)
-    
+    const editorRef = useRef<any | null>(null)    
     const onMount = (editor: any) => {
         editorRef.current = editor
         editor.focus()
     }
     const currentLanguage = useRecoilValue($currentLanguage);
     const position = useRecoilValue($outputPosition)
-
+    const isVertical = useRecoilValue($isVertical)
+    const isHidden = useRecoilValue($isHidden)
     
 
+
+
     return (
-        <Box display={"flex"} flexDirection={{base: "column", md:"row"}}>
-            <Toolbar />
-            <Box px={{base: 0,md:6}} display={"flex"}  flexDirection={position as "column"}  gap={4}>
-                <Box 
-                w={(position == "column" || position == "column-reverse") ? "100%" : "70%"}
-                >
-                    
-                    <Editor                         
-                        theme='vs-dark'
-                        options={{automaticLayout: true}}
-                        height="55vh"   
+        <Box display={"flex"} flexDirection={{base: "column", md:"row"}}>                    
+            <Toolbar editorRef={editorRef}/>
+            <Box  display={"flex"}  flexDirection={{base: isVertical ? position as "column" : "column", md: position as "column"}} >
+                <Box    
+                    width={{
+                        base: "100vw",
+                        md: 
+                            (isHidden || isVertical) 
+                            ? "calc(100vw - 50px)"                              
+                            : "calc(80vw - 50px)"
+                    }}
+                    height={{
+                        base: "calc(80vh - 110px)",
+                        md: 
+                            (isVertical && !isHidden)
+                            ? "calc(80vh - 60px)" 
+                            : 'calc(100vh - 60px)'            
+                    }} 
+                    maxHeight={{
+                        base: "calc(80vh - 110px)",
+                        md: 
+                        (isVertical && !isHidden)
+                        ? "calc(80vh - 60px)" 
+                        : 'calc(100vh - 60px)'           
+                    }}                     
+                >                    
+                    <Editor      
+                        className='editor'                   
+                        theme='vs-dark'                        
+                        options={{automaticLayout: true}}                        
                         onMount={onMount}                
                         language={currentLanguage}
                         defaultValue="// some comment" 
@@ -45,11 +68,10 @@ import Toolbar from './toolbar';
                             size='xl'
                         />}
                     />
-                </Box>
-               
-                <Output editorRef={editorRef}/>
+                </Box>     
+                <OutputDisplay />                    
             </Box>
-            <DownloadModal editorRef={editorRef}/>      
+            
         </Box>
     )
 }

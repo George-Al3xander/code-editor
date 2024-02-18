@@ -1,4 +1,4 @@
-import { FaJs, FaReact, FaPython, FaJava,  FaPhp} from 'react-icons/fa';
+import { FaJs,  FaPython, FaJava,  FaPhp} from 'react-icons/fa';
 import { TbBrandCSharp,TbBrandCpp  } from "react-icons/tb";
 import { SiTypescript } from "react-icons/si";
 export const BASE_URL = "https://emkc.org/api/v2/piston"
@@ -43,4 +43,7 @@ export const LANGUAGES_REACT_ICONS = {
     csharp: TbBrandCSharp ,
     php: FaPhp ,
     "c++": TbBrandCpp ,
-  };
+};
+
+
+export const ICON_SIZE = 25

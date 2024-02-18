@@ -1,6 +1,6 @@
 import { selector, selectorFamily } from "recoil";
 import { getLanguages } from "../../utils/utils";
-import { $currentLanguage, $languages } from "../atoms/atoms";
+import { $currentLanguage, $languages, $outputPosition, $outputVisibility } from "../atoms/atoms";
 import { LANGUAGES_FILE_EXTENSIONS } from "../../conts";
 
 
@@ -38,3 +38,21 @@ export const $currentLangExt = selector({
         return LANGUAGES_FILE_EXTENSIONS[currLang as "javascript"]
     }
 })
+
+export const $isVertical = selector({
+    key: "GetOutputPositionCheck",
+    get: ({get}) => {
+        const position =  get($outputPosition);
+        return (position == "column" || position == "column-reverse") 
+    }
+})
+
+
+export const $isHidden = selector({
+    key: "GetOutputPositionStatus",
+    get: ({get}) => {
+        const status =  get($outputVisibility);
+        return status == "none"
+    }
+})
+

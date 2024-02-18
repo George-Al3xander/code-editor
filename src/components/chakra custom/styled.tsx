@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Box, Button, ChakraProps, IconButton, Menu, MenuButton,  MenuButtonProps,  MenuItem,  MenuList, Text, Tooltip, TooltipProps } from '@chakra-ui/react'
+import { Box, Button, ChakraProps, IconButton, IconButtonProps, Menu, MenuButton,  MenuButtonProps,  MenuItem,  MenuList, Text, Tooltip, TooltipProps } from '@chakra-ui/react'
 
 type StyledProps = {children: ReactNode} & ChakraProps
 
@@ -40,7 +40,7 @@ export const StyledMenuItem = ({children, onClick,isSelected,...props}: StyledPr
 
 
 export const  SettingsTooltip = ({children,...props}: StyledProps & TooltipProps) => (
-    <Tooltip fontSize='md' bg={"vscode.bg"} hasArrow  placement={'auto-start'} {...props}>{children}</Tooltip>
+    <Tooltip display={{base: "none", md: "initial"}} color={"white"} fontSize='md' bg={"vscode.bg"} hasArrow  placement={'auto-start'} {...props}>{children}</Tooltip>
 )
 
 export const settingsButtonSyles : ChakraProps & MenuButtonProps = {
@@ -54,3 +54,15 @@ export const settingsButtonSyles : ChakraProps & MenuButtonProps = {
         borderRadius: 0
     }
 }
+
+
+export const SettingsMenuButton = ({icon,label,...props}: MenuButtonProps & {icon: ReactNode, label: string}) => (
+    <SettingsTooltip label={label}>
+        <MenuButton  
+            as={IconButton} 
+            aria-label={label}
+            icon={icon} 
+            {...props}
+            {...settingsButtonSyles} />
+    </SettingsTooltip>
+)

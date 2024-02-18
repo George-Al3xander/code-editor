@@ -1,7 +1,7 @@
 import  {  useState } from 'react'
 import { executeCode } from '../utils/api';
-import { useRecoilValue } from 'recoil';
-import { $currentLanguage } from '../state/atoms/atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { $currentLanguage, $output } from '../state/atoms/atoms';
 import { $languageVersion } from '../state/selectors/selectors';
 import {useToast } from '@chakra-ui/react'
 
@@ -10,7 +10,7 @@ const useRunCode = ({editorRef}:{editorRef:any}) => {
     const language = useRecoilValue($currentLanguage);
     const version = useRecoilValue($languageVersion(language))
     const toast = useToast();
-    const [output, setOutput] = useState<string[] | null>(null);
+    const  setOutput = useSetRecoilState($output)
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
  
@@ -36,7 +36,7 @@ const useRunCode = ({editorRef}:{editorRef:any}) => {
       }
     };
 
-    return {isError, isLoading, output, runCode}
+    return {isError, isLoading, runCode}
 }
 
 export default useRunCode

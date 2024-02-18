@@ -1,8 +1,11 @@
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure } from "@chakra-ui/react"
+import { Button, FormControl, FormLabel, IconButton, Input, InputGroup, InputRightAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure } from "@chakra-ui/react"
 import { useRef, useState } from "react"
 import { useRecoilValue } from "recoil";
 import { $currentLanguage } from "../state/atoms/atoms";
 import { $currentLangExt } from "../state/selectors/selectors";
+import { FaPlay,FaFileDownload } from "react-icons/fa";
+import { SettingsTooltip, settingsButtonSyles } from "./chakra custom/styled";
+import { ICON_SIZE } from "../conts";
 
 function  DownloadModal({editorRef}:{editorRef:any}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -30,7 +33,9 @@ function  DownloadModal({editorRef}:{editorRef:any}) {
   
     return (
       <>
-        <Button onClick={onOpen}>Download code</Button>        
+        <SettingsTooltip label={"Download code"}>
+            <IconButton {...settingsButtonSyles}  icon={<FaFileDownload size={ICON_SIZE}/>} aria-label="Download button" onClick={onOpen} /> 
+        </SettingsTooltip>
   
         <Modal
           initialFocusRef={initialRef}         

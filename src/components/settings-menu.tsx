@@ -1,14 +1,15 @@
 import {  ChakraProps, IconButton, Menu,  MenuButton,  MenuItemOption,  MenuOptionGroup } from "@chakra-ui/react"
-import { SettingsTooltip, StyledMenuButton, StyledMenuList, menuItemStyles, settingsButtonSyles } from "./chakra custom/styled"
+import { SettingsMenuButton, SettingsTooltip, StyledMenuButton, StyledMenuList, menuItemStyles, settingsButtonSyles } from "./chakra custom/styled"
 import { useRecoilState, useSetRecoilState } from "recoil"
 import { $outputPosition, $outputVisibility } from "../state/atoms/atoms"
 import { IoSettings } from "react-icons/io5";
+import { ICON_SIZE } from "../conts";
 
 
 type MenuItem = {
     value: string,
     title: string,
-    additionalProps?: ChakraProps 
+    additionalProps?: ChakraProps & {isDisabled?: boolean}
 }
 
 type MenuGroup ={
@@ -27,19 +28,27 @@ const Settings = () => {
             title: "Output position",
             onChange: (data: string | string[]) => setPosition(typeof data == "string" ? data : data[0]),
             menuItems: [
-                {value: "column-reverse", title: "top"},
-                {value: "column", title: "bottom"},
+                {value: "column-reverse", title: "top", additionalProps: {
+                    isDisabled: visibilityStatus == "none"
+
+                }},
+                {value: "column", title: "bottom", additionalProps: {
+                    isDisabled: visibilityStatus == "none"
+
+                }},
                 {value: "row", title: "right", additionalProps: {
-                    display: {base: "none", md: "initial"}
+                    display: {base: "none", md: "initial"},
+                    isDisabled: visibilityStatus == "none"
                 }},
                 {value: "row-reverse", title: "left", additionalProps: {
-                    display: {base: "none", md: "initial"}
+                    display: {base: "none", md: "initial"},
+                    isDisabled: visibilityStatus == "none"
                 }},
             ]
         },
         {
             title: "Output visibility",
-            onChange: (data: string | string[]) => setVisibility(typeof data == "string" ? data : data[0]),
+            onChange: (data: string | string[]) => setVisibility((typeof data == "string" ? data : data[0]) as "none"),
             menuItems: [
                 {value: "initial",title: "visible"},
                 {value: "none",title: "hidden"},
@@ -49,24 +58,19 @@ const Settings = () => {
 
   return (<Menu closeOnSelect={false}>
 
-        <SettingsTooltip label="Settings">
-            <MenuButton    
-            as={IconButton} 
-            aria-label="settings" 
-            icon={<IoSettings />} {...settingsButtonSyles} />
-        </SettingsTooltip>
+       <SettingsMenuButton  label="Settings" icon={<IoSettings size={ICON_SIZE}/>}/>
     
         <StyledMenuList minWidth='240px'>   
             {menuGroups.map(({title, menuItems, onChange}) => 
             <MenuOptionGroup 
-            onChange={onChange}
-            defaultValue={menuItems[0].value} 
-            title={title} 
-            type='radio'
+                onChange={onChange}
+                defaultValue={menuItems[0].value} 
+                title={title} 
+                type='radio'
             >
                 {menuItems.map(({title,value,additionalProps}) => 
                 <MenuItemOption 
-                    isDisabled={visibilityStatus == "none"}
+                    
                     textTransform={"capitalize"} 
                     value={value} 
                     {...additionalProps}

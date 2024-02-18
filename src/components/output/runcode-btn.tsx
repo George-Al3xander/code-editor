@@ -1,30 +1,25 @@
-import { Button } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Button, IconButton, Text} from '@chakra-ui/react'
+import useRunCode from '../../hooks/useRunCode'
+import { useRecoilValue } from 'recoil'
+import { $outputPosition, $outputVisibility } from '../../state/atoms/atoms'
+import { SettingsTooltip, settingsButtonSyles } from '../chakra custom/styled'
+import { FaPlay } from 'react-icons/fa'
+import { ICON_SIZE } from '../../conts'
 
-const RuncodeBtn = () => {
 
-    const runCode = async () => {
-        const sourceCode = editorRef.current.getValue();
-        if (!sourceCode) return;
-        try {
-          setIsLoading(true);
-          const { run: result } = await executeCode({currLanguage: {version,language}, sourceCode});
-          setOutput(result.output.split("\n"));
-          result.stderr ? setIsError(true) : setIsError(false);
-        } catch (error: any) {
-          
-          toast({
-            title: "An error occurred.",
-            description: error.message || "Unable to run code",
-            status: "error",
-            duration: 6000,
-          });
-        } finally {
-          setIsLoading(false);
-        }
-      };
-  
-    return (<Button isLoading={isLoading} onClick={runCode} variant={"outline"} colorScheme='green' mb={4}>Run code</Button>)
+
+const RuncodeBtn = ({editorRef}:{editorRef:any}) => {
+    
+  // const position = useRecoilValue($outputPosition)
+
+    const {isError, isLoading,  runCode} = useRunCode({editorRef})
+    const visibilityStatus = useRecoilValue($outputVisibility)
+    return (
+      <SettingsTooltip label={"Run Code"}>
+            <IconButton isLoading={isLoading} onClick={runCode} {...settingsButtonSyles}  icon={<FaPlay size={ICON_SIZE}/>} aria-label="Run code"  /> 
+        </SettingsTooltip>      
+     
+    )
 }
 
 export default RuncodeBtn
