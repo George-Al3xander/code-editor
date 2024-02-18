@@ -2,13 +2,14 @@ import  {  useState } from 'react'
 import { executeCode } from '../utils/api';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { $currentLanguage, $output } from '../state/atoms/atoms';
-import { $languageVersion } from '../state/selectors/selectors';
+import { $isHidden, $languageVersion } from '../state/selectors/selectors';
 import {useToast } from '@chakra-ui/react'
 
 
 const useRunCode = ({editorRef}:{editorRef:any}) => {
     const language = useRecoilValue($currentLanguage);
-    const version = useRecoilValue($languageVersion(language))
+    const version = useRecoilValue($languageVersion(language));
+    const isHidden= useRecoilValue($isHidden)
     const toast = useToast();
     const  setOutput = useSetRecoilState($output)
     const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +23,22 @@ const useRunCode = ({editorRef}:{editorRef:any}) => {
         setIsLoading(true);
         const { run: result } = await executeCode({currLanguage: {version,language}, sourceCode});
         setOutput(result.output.split("\n"));
+        if(isHidden) {
+          if(result.stderr) {
+              toast({
+                title: "Compilation error",
+                //description: "Syntax or non-existing variable",
+                status: "error",
+                duration: 6000,
+              });
+          } else {
+            toast({
+              title: "Successful compilation",              
+              status: "success",
+              duration: 6000,
+            });
+          }
+        }
         result.stderr ? setIsError(true) : setIsError(false);
       } catch (error: any) {
         

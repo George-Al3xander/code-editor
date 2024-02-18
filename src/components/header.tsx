@@ -1,5 +1,5 @@
 import { Box, Heading } from "@chakra-ui/react"
-import Settings from "./settings-menu"
+
 
 
 

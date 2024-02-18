@@ -1,8 +1,8 @@
 import { Box,Spinner} from '@chakra-ui/react'
-import  { useRef, useState } from 'react'
+import  { useRef} from 'react'
 import Editor from '@monaco-editor/react';
 import { useRecoilValue } from 'recoil';
-import { $currentLanguage, $outputPosition, $outputVisibility } from '../state/atoms/atoms';
+import { $currentLanguage, $outputPosition} from '../state/atoms/atoms';
 
 
 

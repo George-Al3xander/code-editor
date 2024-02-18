@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 import { $output, $outputPosition, $outputVisibility } from "../../state/atoms/atoms"
 import { Box } from "@chakra-ui/react"
 import {  Text} from '@chakra-ui/react'
@@ -10,7 +10,7 @@ const OutputDisplay = () => {
     const position = useRecoilValue($outputPosition)
     const handleBorder = (pos: string) => pos == position ? "1px solid gray" : "";
  
-    const output = useRecoilValue($output)
+    const [output,setOutput] = useRecoilState($output)
     const visibilityStatus = useRecoilValue($outputVisibility)
     const isVertical = useRecoilValue($isVertical)
  
@@ -31,7 +31,10 @@ const OutputDisplay = () => {
             borderRight={handleBorder("row-reverse")}
             borderLeft={handleBorder("row")}
         >
-        <Text  mb={2} textTransform={"uppercase"}>Output</Text>
+        <Box mb={2} flexWrap={"wrap"} width={"100%"} justifyContent={"space-between"} alignItems={"center"} gap={2} display={"flex"}>
+            <Text   textTransform={"uppercase"}>Output</Text>
+            <Text opacity={".7"} _hover={{cursor: "pointer", opacity: "1"}} onClick={() => setOutput(null)} textTransform={"uppercase"}  fontSize={"small"}>Reset</Text>
+        </Box>
             <Box  
                 maxHeight={{
                     base: "calc(20vh - 60px)",
@@ -41,7 +44,7 @@ const OutputDisplay = () => {
             >
                 {output
                 ? output.map((line, i) => <Text key={i}>{line}</Text>)
-                : 'Click "Run Code" to see the output here'}
+                : 'Click play button to compile your code'}
             </Box>
     </Box>)
 

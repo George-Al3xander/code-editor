@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Box, Button, ChakraProps, IconButton, IconButtonProps, Menu, MenuButton,  MenuButtonProps,  MenuItem,  MenuList, Text, Tooltip, TooltipProps } from '@chakra-ui/react'
+import { Button, ChakraProps, IconButton,  MenuButton,  MenuButtonProps,  MenuItem,  MenuList,  Tooltip, TooltipProps } from '@chakra-ui/react'
 
 type StyledProps = {children: ReactNode} & ChakraProps
 

@@ -17,7 +17,7 @@ export const $currentLanguage = atom({
 
 export const $outputPosition = atom({
     key: "output-position",
-    default: "column-reverse"
+    default: "column"
 })
 
 export const $outputVisibility = atom<"initial" | "none">({

@@ -1,4 +1,4 @@
-import { MenuItem , Text} from "@chakra-ui/react";
+import {  Text} from "@chakra-ui/react";
 import { PistonRuntime } from "../../types/types";
 import { $selectedCheck } from "../../state/selectors/selectors";
 import { useRecoilValue, useSetRecoilState } from "recoil";

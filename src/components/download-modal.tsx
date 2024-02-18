@@ -1,21 +1,20 @@
-import { Button, FormControl, FormLabel, IconButton, Input, InputGroup, InputRightAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure } from "@chakra-ui/react"
-import { useRef, useState } from "react"
+import { Button, FormControl, FormLabel, IconButton, Input, InputGroup, InputRightAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import { useRef } from "react"
 import { useRecoilValue } from "recoil";
-import { $currentLanguage } from "../state/atoms/atoms";
 import { $currentLangExt } from "../state/selectors/selectors";
-import { FaPlay,FaFileDownload } from "react-icons/fa";
+import { FaFileDownload } from "react-icons/fa";
 import { SettingsTooltip, settingsButtonSyles } from "./chakra custom/styled";
 import { ICON_SIZE } from "../conts";
 
 function  DownloadModal({editorRef}:{editorRef:any}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [fileName, setFileName] = useState("")
+    
     const initialRef = useRef(null)
     const currExt = useRecoilValue($currentLangExt)
-    
+    const fileNameRef = useRef("")
     const download = () => {
         const file = new File([editorRef.current.getValue()], 
-        `${fileName ? fileName : "mycode"}${currExt}`, {
+        `${fileNameRef.current ? fileNameRef.current : "mycode"}${currExt}`, {
             type: 'text/plain',
           })
 
@@ -43,15 +42,15 @@ function  DownloadModal({editorRef}:{editorRef:any}) {
           onClose={onClose}
         >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent color={"white"} bg={"vscode.bg"}>
             <ModalHeader>Download your code</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl>
                 <FormLabel>File name</FormLabel>
                 <InputGroup>
-                    <Input defaultValue={fileName} onChange={(e) => setFileName(e.target.value)} ref={initialRef} placeholder='mycode' />
-                    <InputRightAddon>{currExt}</InputRightAddon>
+                    <Input defaultValue={fileNameRef.current} onChange={(e) => fileNameRef.current = e.target.value} ref={initialRef} placeholder='mycode' />
+                    <InputRightAddon color={"black"}>{currExt}</InputRightAddon>
                 
                 </InputGroup>
               </FormControl>
