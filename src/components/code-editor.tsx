@@ -38,14 +38,14 @@ import { $isHidden, $isVertical } from '../state/selectors/selectors';
                             : "calc(80vw - 50px)"
                     }}
                     height={{
-                        base: "calc(80vh - 110px)",
+                        base: `calc(${isHidden ? "100" : "80"}vh - 110px)`,
                         md: 
                             (isVertical && !isHidden)
                             ? "calc(80vh - 60px)" 
                             : 'calc(100vh - 60px)'            
                     }} 
                     maxHeight={{
-                        base: "calc(80vh - 110px)",
+                        base: `calc(${isHidden ? "100" : "80"}vh - 110px)`,
                         md: 
                         (isVertical && !isHidden)
                         ? "calc(80vh - 60px)" 
