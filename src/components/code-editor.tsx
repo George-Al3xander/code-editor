@@ -3,26 +3,21 @@ import  { useRef} from 'react'
 import Editor from '@monaco-editor/react';
 import { useRecoilValue } from 'recoil';
 import { $currentLanguage, $outputPosition} from '../state/atoms/atoms';
-
-
-
 import Toolbar from './toolbar';
-
 import OutputDisplay from './output/output-display';
 import { $isHidden, $isVertical } from '../state/selectors/selectors';
 
  const CodeEditor = () => {    
     const editorRef = useRef<any | null>(null)    
-    const onMount = (editor: any) => {
-        editorRef.current = editor
-        editor.focus()
-    }
     const currentLanguage = useRecoilValue($currentLanguage);
     const position = useRecoilValue($outputPosition)
     const isVertical = useRecoilValue($isVertical)
     const isHidden = useRecoilValue($isHidden)
-    
 
+    const onMount = (editor: any) => {
+        editorRef.current = editor
+        editor.focus()
+    }
 
 
     return (
@@ -55,7 +50,7 @@ import { $isHidden, $isVertical } from '../state/selectors/selectors';
                     <Editor      
                         className='editor'                   
                         theme='vs-dark'                        
-                        options={{automaticLayout: true}}                        
+                        options={{automaticLayout: true,quickSuggestions: false}}                        
                         onMount={onMount}                
                         language={currentLanguage}
                         defaultValue="// some comment" 

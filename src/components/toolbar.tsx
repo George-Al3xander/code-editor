@@ -6,6 +6,7 @@ import Settings from "./settings-menu";
 import LanguageMenu from "./language menu/language-menu";
 import DownloadModal from "./download-modal";
 import RuncodeBtn from "./output/runcode-btn";
+import ImportModal from "./import-modal";
 
 
 const Toolbar = ({editorRef}:{editorRef:any}) => {
@@ -15,7 +16,8 @@ const Toolbar = ({editorRef}:{editorRef:any}) => {
             <Stack gap={5} direction={{base: "row-reverse", md: "column"}}>
                 <RuncodeBtn editorRef={editorRef}/>
                 <LanguageMenu />   
-                <DownloadModal editorRef={editorRef}/>          
+                <DownloadModal editorRef={editorRef}/>   
+                <ImportModal editorRef={editorRef}/>       
             </Stack>  
         <Settings />
     </Box>)

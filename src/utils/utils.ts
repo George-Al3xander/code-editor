@@ -1,7 +1,8 @@
-import { BACKUP_LANGUAGE_VERSIONS, LANGUAGES } from "../conts";
+import { BACKUP_LANGUAGE_VERSIONS, LANGUAGES, LANGUAGES_FILE_EXTENSIONS } from "../conts";
 import { LangugeMap} from "../types/types";
 import { getRuntimes } from "./api"
 
+const backwardsLanguages =  Object.fromEntries(Object.entries(LANGUAGES_FILE_EXTENSIONS).map(a => a.reverse()))
 
 
 
@@ -26,5 +27,11 @@ export const getLanguages = async () => {
     } catch (error) {
         return  BACKUP_LANGUAGE_VERSIONS
     }
+}
+
+
+export const getLangugeByExt = (ext: string) => {   
+    return backwardsLanguages[ext]
+
 }
 
